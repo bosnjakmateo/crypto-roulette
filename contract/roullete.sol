@@ -5,10 +5,10 @@ contract roullete {
     mapping(address => uint256) ledger;
     
     // Popis adresa koje su ulozile
-    address[] public investedAddresses;
+    address[] investedAddresses;
     
     // Adrese koje su ulozile i ulozeni iznos
-    mapping(address => uint256) public poolInvested;
+    mapping(address => uint256) poolInvested;
     
     // Ukupna ulozena vrijednost u trenutnom kolu
     uint256 poolValue = 0;
@@ -16,12 +16,11 @@ contract roullete {
     // Za rng
     uint nonce;
     
-    address owner;
+    address payable owner;
     
     constructor() public{
         owner = msg.sender;
     }
-    
 
     function investInPool(uint256 amount) public {
         require(ledger[msg.sender] >= amount, "Not enough funds");
@@ -81,10 +80,6 @@ contract roullete {
         ledger[msg.sender] += msg.value / 1 ether * 1000;
     }
     
-    // Koliko ima pojedini račun
-    function balanceOf(address _address) public view returns (uint256 balance) {
-        return ledger[_address];
-    }
     
     // Koliko ima posiljaoc
     function balanceOfSender() public view returns (uint256 balance) {
@@ -96,12 +91,8 @@ contract roullete {
         return poolValue;
     }
     
-    function investedSender() public view returns (uint256) {
-        return poolInvested[msg.sender];
-    }
-    
-    // Koliko ima vlasnika
-    function balanceOfOwner() public view returns (uint256 balance) {
-        return address(this).balance;
+    function destory() public {
+        require(msg.sender == owner, "You are not the owner!");
+        selfdestruct(owner);
     }
 }

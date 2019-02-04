@@ -17,20 +17,20 @@
       </v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <HelloWorld/>
+      <Index/>
     </v-content>
   </v-app>
 </template>
 
 <script>
 /* eslint-disable */ 
-import HelloWorld from "./components/HelloWorld";
+import Index from "./components/Index";
 import axios from "axios";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Index
   },
   data() {
     return {
